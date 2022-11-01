@@ -21,9 +21,13 @@ router.route('/seats').post((req, res) => {
     const {day, seat, client, email} = req.body;
 
     if (day && seat && client && email) {
+        if(!db.seats.some(e => (e.day == day && e.seat == seat))){
         db.seats.push({id, ...req.body})
         res.json({message: 'OK'});
-        console.log(db.seats);
+        //console.log(db.seats);
+        } else {
+            res.status(423).json({message: 'The slot is already taken'})
+        }  
     } else {
         res.status(400).json({message: 'Please add all needed data'});
     }
