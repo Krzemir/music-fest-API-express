@@ -6,13 +6,16 @@ import './SeatChooser.scss';
 import io from 'socket.io-client';
 
 const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
-//  const socket = io('ws://localhost:8000', { transports: ["websocket"] });
-  // const socket = io((process.env.NODE_ENV === 'production') ? '' : 'ws://localhost:8000', { transports: ["websocket"] });
-
   
   const dispatch = useDispatch();
   const seats = useSelector(getSeats);
   const requests = useSelector(getRequests);
+
+  
+  const allSeats = 50;
+   const freeSeats = (allSeats - (seats.filter(item => item.day === chosenDay).length));
+  console.log('SEATSobj', seats, chosenDay)
+  
 
   useEffect(() => {
     dispatch(loadSeatsRequest());
@@ -23,6 +26,7 @@ const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
     });
   }, [dispatch]);
 
+  
   const isTaken = (seatId) => {
     return (seats.some(item => (item.seat === seatId && item.day === chosenDay)));
   }
@@ -33,7 +37,10 @@ const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
     else return <Button key={seatId} color="primary" className="seats__seat" outline onClick={(e) => updateSeat(e, seatId)}>{seatId}</Button>;
   }
 
+  
   return (
+    <>
+    
     <div>
       <h3>Pick a seat</h3>
       <small id="pickHelp" className="form-text text-muted ml-2"><Button color="secondary" /> – seat is already taken</small>
@@ -41,7 +48,12 @@ const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
       { (requests['LOAD_SEATS'] && requests['LOAD_SEATS'].success) && <div className="seats">{[...Array(50)].map((x, i) => prepareSeat(i+1) )}</div>}
       { (requests['LOAD_SEATS'] && requests['LOAD_SEATS'].pending) && <Progress animated color="primary" value={50} /> }
       { (requests['LOAD_SEATS'] && requests['LOAD_SEATS'].error) && <Alert color="warning">Couldn't load seats...</Alert> }
+     
     </div>
+    <div>
+    <small id="pickHelp" className="form-text text-muted ml-2 mt-2">Free seats {freeSeats}/{allSeats}</small>
+    </div>
+    </>
   )
 }
 
