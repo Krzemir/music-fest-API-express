@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 
 const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
 //  const socket = io('ws://localhost:8000', { transports: ["websocket"] });
-  // const socket = io((process.env.NODE_ENV === 'production') ? '' : 'ws://http://localhost:8000', { transports: ["websocket"] });
+  // const socket = io((process.env.NODE_ENV === 'production') ? '' : 'ws://localhost:8000', { transports: ["websocket"] });
 
   
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
 
   useEffect(() => {
     dispatch(loadSeatsRequest());
-    const socket = io('ws://localhost:8000', { transports: ["websocket"] });
+    const socket = io((process.env.NODE_ENV === 'production') ? '' : 'ws://localhost:8000', { transports: ["websocket"] });
     socket.on('seatsUpdated', (seats) => {
       console.log('seats', seats)
       dispatch(loadSeats(seats));
