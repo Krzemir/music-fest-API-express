@@ -5,6 +5,7 @@ const socket = require('socket.io')
 const testimonialsRoutes = require('./routes/testimonials.routes');
 const concertsRoutes = require('./routes/concerts.routes');
 const seatsRoutes = require('./routes/seats.routes');
+//const db = require('./db');
 
 const app = express();
 
@@ -22,13 +23,13 @@ const io = socket(server);
 
 io.on('connection', (socket) => {
   console.log('New socket!', socket.id);
+ // io.emit('seatsUpdated', db.seats)
 });
 
 app.use((req, res, next) => {
   req.io = io;
   next();
 });
-
 
 
 app.use('/api', testimonialsRoutes);

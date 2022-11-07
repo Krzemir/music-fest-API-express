@@ -1,20 +1,24 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Progress, Alert } from 'reactstrap';
-import { getSeats, loadSeats, getRequests } from '../../../redux/seatsRedux';
+import { getSeats, loadSeats, getRequests, loadSeatsRequest } from '../../../redux/seatsRedux';
 import './SeatChooser.scss';
 import io from 'socket.io-client';
 
 const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
- const socket = io('localhost:8000', { transports: ["websocket"] });
+//  const socket = io('ws://localhost:8000', { transports: ["websocket"] });
   // const socket = io((process.env.NODE_ENV === 'production') ? '' : 'ws://http://localhost:8000', { transports: ["websocket"] });
+
   
   const dispatch = useDispatch();
   const seats = useSelector(getSeats);
   const requests = useSelector(getRequests);
 
   useEffect(() => {
+    dispatch(loadSeatsRequest());
+    const socket = io('ws://localhost:8000', { transports: ["websocket"] });
     socket.on('seatsUpdated', (seats) => {
+      console.log('seats', seats)
       dispatch(loadSeats(seats));
     });
   }, [dispatch]);

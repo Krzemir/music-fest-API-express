@@ -4,10 +4,14 @@ const db = require('../db');
 const { v4: uuidv4} = require('uuid')
 
 
+
 router.route('/seats').get((req, res ) => {
-    db.seats.length > 0 ?
-    (res.json(db.seats)) :
+    if (db.seats.length > 0) {
+        
+        (res.json(db.seats)) 
+    } else {
     (res.status(404).json({message: 'There are no seats'}));
+    }    
 })
 
 router.route('/seats/:id').get((req, res) => {
@@ -26,7 +30,7 @@ router.route('/seats').post((req, res) => {
         res.json({message: 'OK'});
            req.io.emit('seatsUpdated', db.seats)
 
-        //console.log(db.seats);
+        console.log(db.seats);
         } else {
             res.status(423).json({message: 'The slot is already taken'})
         }  
