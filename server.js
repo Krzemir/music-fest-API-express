@@ -25,7 +25,7 @@ const server = app.listen(process.env.PORT || 8000, () => {
 
   //mongoose.connect('mongodb://localhost:27017/NewWaveDB', { useNewUrlParser: true, useUnifiedTopology: true });
   const db = mongoose.connection;
-  console.log(db)
+  //console.log(db)
 
   db.once('open', () => {
     console.log('Connected to the database')
