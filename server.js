@@ -39,7 +39,6 @@ const io = socket(server);
 io.on('connection', (socket) => {
   console.log('New socket!', socket.id);
   io.emit('seatsUpdated', db.seats)
-  console.log('server db-seats', db.seats)
 });
 
 app.use((req, res, next) => {

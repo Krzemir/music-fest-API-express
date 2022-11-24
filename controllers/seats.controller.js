@@ -32,9 +32,12 @@ exports.post = async (req, res) => {
             email: email
         })
         await newSeat.save();
+        req.io.emit('seatsUpdated', await Seat.find())
         res.json({ message: 'OK'})
+                  
     }
     catch(err) {
+        console.log(err)
         res.status(500).json({message: err})
     }
 }
