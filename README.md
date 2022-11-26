@@ -1,3 +1,3 @@
-# Music Festival App with deats reservation system
-#express, API
-https://krzemir-music-fest-api.herokuapp.com/
+# Music Festival App with seats reservation system
+#express, API, Websocket, Mocha tests API
+https://music-fest-api-express.krzemir.repl.co/

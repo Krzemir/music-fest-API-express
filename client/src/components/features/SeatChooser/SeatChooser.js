@@ -13,14 +13,13 @@ const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
 
   
   const allSeats = 50;
-   const freeSeats = (allSeats - (seats.filter(item => item.day === chosenDay).length));
-  
+  const freeSeats = (allSeats - (seats.filter(item => item.day === chosenDay).length));
 
   useEffect(() => {
     dispatch(loadSeatsRequest());
     const socket = io((process.env.NODE_ENV === 'production') ? '' : 'ws://localhost:8000', { transports: ["websocket"] });
     socket.on('seatsUpdated', (seats) => {
-     // console.log('seats-seat chooser', seats)
+     console.log('seats-seat chooser', seats)
       dispatch(loadSeats(seats));
     });
   }, [dispatch]);
