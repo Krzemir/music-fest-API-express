@@ -1,5 +1,6 @@
-const Concert = require('../models/concert.model')
-const Seat = require('../models/seats.model')
+const Concert = require('../models/concert.model');
+const Seat = require('../models/seats.model');
+const Workshop = require('../models/workshop.model');
 
 exports.getAll = async (req, res) => {
     try {
@@ -8,8 +9,13 @@ exports.getAll = async (req, res) => {
         for (let concert of concerts) {
             const busySeats = await Seat.find({ day: concert.day})
             const seats = 50 - busySeats.length;
-            concert.seats = seats ;
-            console.log(concert)
+            concert['seats'] = seats;
+            
+            const workshops = await Workshop.find().populate('concert')
+            concert['workshops'] = workshops;
+            
+            console.log('seats', concert.seats);
+            console.log('workshops', concert.workshops );
         }
         res.json(concerts)
     }
