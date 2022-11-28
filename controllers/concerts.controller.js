@@ -4,20 +4,20 @@ const Workshop = require('../models/workshop.model');
 
 exports.getAll = async (req, res) => {
     try {
-        const concerts = await Concert.find()
+        const concerts = await Concert.find();
+        const concertsParsed = JSON.parse(JSON.stringify(concerts));
 
-        for (let concert of concerts) {
+        for (let concert of concertsParsed) {
+
             const busySeats = await Seat.find({ day: concert.day})
             const seats = 50 - busySeats.length;
             concert['seats'] = seats;
             
-            const workshops = await Workshop.find().populate('concert')
+            const workshops = await Workshop.find()
             concert['workshops'] = workshops;
-            
-            console.log('seats', concert.seats);
-            console.log('workshops', concert.workshops );
         }
-        res.json(concerts)
+        res.json(concertsParsed)
+
     }
     catch(err) {
         res.status(500).json({ message: err});
