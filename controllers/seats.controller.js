@@ -22,22 +22,6 @@ exports.getById = async (req, res) => {
     }
 }
 
-exports.getFreeByDay = async (req, res) => {
-    try {
-        const seat = await Seat.find({ day: req.params.day })
-        if (!seat) {
-            res.status(404).json({message: 'Not found...'})
-        } 
-        else {
-            const freeSeats = 50 - seat.length;
-            res.json(freeSeats)
-        }
-        
-    }
-    catch (err) {
-        res.status(500).json({ message: err })
-    }
-}
 
 
 exports.post = async (req, res) => {

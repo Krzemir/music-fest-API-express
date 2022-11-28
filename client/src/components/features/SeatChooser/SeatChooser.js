@@ -19,7 +19,6 @@ const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
     dispatch(loadSeatsRequest());
     const socket = io((process.env.NODE_ENV === 'production') ? '' : 'ws://localhost:8000', { transports: ["websocket"] });
     socket.on('seatsUpdated', (seats) => {
-     console.log('seats-seat chooser', seats)
       dispatch(loadSeats(seats));
     });
   }, [dispatch]);

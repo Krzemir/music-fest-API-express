@@ -2,6 +2,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../../../server');
 const Concert = require('../../../models/concert.model');
+const Seat = require('../../../models/seats.model');
 
 chai.use(chaiHttp);
 const expect = chai.expect;
@@ -30,6 +31,20 @@ describe('GET /api/concerts', () => {
       image: '/image2.jpg' 
       })
     await concertTwo.save()
+
+    const seatOne = new Seat({
+      day: 1,
+      seat: 1,
+      client: 'Client',
+      email: 'client@mail.com'
+    })
+
+    const seatTwo = new Seat({
+      day: 2,
+      seat: 2,
+      client: 'ClientTwo',
+      email: 'clientTwo@mail.com'
+    })
   });
 
 
