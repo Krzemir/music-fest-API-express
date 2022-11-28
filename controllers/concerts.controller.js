@@ -14,7 +14,6 @@ exports.getAll = async (req, res) => {
             concert['seats'] = seats;
             
             const workshops = await Workshop.find({ concertId: concert._id})
-            console.log(workshops)
             concert['workshops'] = workshops;
         }
         res.json(concertsParsed)
