@@ -13,7 +13,8 @@ exports.getAll = async (req, res) => {
             const seats = 50 - busySeats.length;
             concert['seats'] = seats;
             
-            const workshops = await Workshop.find()
+            const workshops = await Workshop.find({ concertId: concert._id})
+            console.log(workshops)
             concert['workshops'] = workshops;
         }
         res.json(concertsParsed)
