@@ -18,6 +18,8 @@ const Prices = ( ) => {
     return days[(day - 1)]
   }
 
+  console.log('concerts', concerts)
+
   return (
 
       <Container>
