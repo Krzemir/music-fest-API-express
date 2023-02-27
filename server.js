@@ -27,7 +27,10 @@ const server = app.listen(process.env.PORT || 8000, () => {
 const NODE_ENV = process.env.NODE_ENV;
 let dbUri = '';
 
-if(NODE_ENV === 'production') dbUri = 'mongodb+srv://krzemir:sddnELAx5cBlAGd5@cluster0.pu04hcg.mongodb.net/NewWaveDB?retryWrites=true&w=majority';
+if(NODE_ENV === 'production') dbUri = 'mongodb+srv://krzemirdev:ir2rTrlF43UWeimi@clustermainfree.52beawg.mongodb.net/NewWaveDB?retryWrites=true&w=majority';
+
+
+
 else if(NODE_ENV === 'test') dbUri = 'mongodb://localhost:27017/NewWaveDBtest';
 else dbUri = 'mongodb://localhost:27017/NewWaveDB';
 
