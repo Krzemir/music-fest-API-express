@@ -18,3 +18,10 @@ screenshots:
 
 <img src="https://i.postimg.cc/MHMgY40y/screencapture-music-fest-api-express-krzemir-repl-co-order-a-ticket-2023-02-20-21-34-24.png" style="width: 70%"/>
 
+--------------------------------------------------
+
+## Installation
+$ yarn install
+## Running the app
+### development
+$ yarn start
